@@ -24,23 +24,26 @@ const App = () => {
     useEffect(() => {
         const url = new URL(window.location.href);
         const params = new URLSearchParams(url.search);
-        setUserId(params.get('userId'));
-        setAccountId(params.get('accountId'));
-    }, []);
+        const newUserId = params.get('userId');
+        const newAccountId = params.get('accountId');
 
-    useEffect(() => {
-        fetch(`http://localhost:8080/getAccount/` + userId + '/' + accountId, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                setBalance(data.balance);
+        if (newAccountId !== accountId) {
+            setUserId(newUserId);
+            setAccountId(newAccountId);
+            fetch(`http://localhost:8080/getAccount/` + newAccountId, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
             })
-            .catch((error) => console.error('Error:', error));
-    }, [userId, accountId]);
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    setBalance(data.balance);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    }, [accountId]);
 
     const openModal = () => {
         setIsModalOpen(true);

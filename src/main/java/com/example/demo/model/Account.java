@@ -1,9 +1,13 @@
 package com.example.demo.model;
 
 public class Account {
-    private String accountId;
-    private double balance;
-    protected boolean isObshiak;
+    protected String accountId;
+    protected double balance;
+    protected boolean isObshiak = false;
+
+    public boolean getIsObshiak() {
+        return isObshiak;
+    }
     public String getAccountId() {
         return accountId;
     }
