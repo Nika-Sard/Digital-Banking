@@ -16,6 +16,15 @@ public class Transaction {
         this.amount = amount;
     }
 
+    public Transaction(Transaction transaction) {
+        this.isPending = transaction.getStatus();
+        this.amount = transaction.getAmount();
+        this.message = transaction.getMessage();
+        this.senderId = transaction.getSenderId();
+        this.receiverId = transaction.getReceiverId();
+        this.transactionId = transaction.getTransactionId();
+    }
+
     void setStatus(boolean isPending) {
         this.isPending = isPending;
     }
