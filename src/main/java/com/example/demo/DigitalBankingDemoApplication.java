@@ -7,12 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class DigitalBankingDemoApplication {
-	@Autowired
-	private static Dao dao;
 	public static void main(String[] args)
 	{
 		SpringApplication.run(DigitalBankingDemoApplication.class, args);
-		dao.initDao();
 	}
 
 }

@@ -2,14 +2,15 @@ package com.example.demo.service;
 
 import com.example.demo.dao.Dao;
 import com.example.demo.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 
 @org.springframework.stereotype.Service
 public class Service {
-    Dao dao;
+    @Autowired
+    private Dao dao;
     Service() {
-        dao = new Dao();
     }
 
     public Account getAccount(String id) {

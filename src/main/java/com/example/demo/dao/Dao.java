@@ -23,11 +23,13 @@ public class Dao {
         this.accounts = new ArrayList<>();
         this.users = new ArrayList<>();
         this.requestManagers = new ArrayList<>();
+        initDao();
     }
 
     public void initDao() {
+        System.out.println("------------------------------ created dao -----------------------");
         ///adding users
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 3; i++) {
             String id = Integer.toString(i);
             users.add(new User(id, "user + id"));
         }
@@ -37,16 +39,12 @@ public class Dao {
         accounts.add(new Account("2"));
 
         accounts.add((Account) new Obshiaki("3"));
-        accounts.add((Account) new Obshiaki("4"));
-
         accounts.getFirst().deposit(10000);
         accounts.get(1).deposit(100);
         accounts.get(2).deposit(500000);
         accounts.get(3).deposit(78);
-        accounts.get(4).deposit(1260893);
 
         Obshiaki ob1 = (Obshiaki)accounts.get(3);
-        Obshiaki ob2 = (Obshiaki)accounts.get(4);
 
         addUserAccount("0", "0");
         addUserAccount("1", "1");
@@ -54,12 +52,7 @@ public class Dao {
 
         ob1.addOwnerId("0");
         ob1.addOwnerId("1");
-        ob1.addOwnerId("9");
-
-        ob2.addOwnerId("0");
-        ob2.addOwnerId("8");
-        ob2.addOwnerId("7");
-
+        ob1.addOwnerId("2");
     }
 
     public String addAccount(boolean isUserAccount) {

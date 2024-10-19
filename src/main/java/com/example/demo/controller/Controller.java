@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class Controller {
     @Autowired
     private Service service;
-    @GetMapping("/getAccount{accountId}")
+    @GetMapping("/getAccount/{accountId}")
     public Account getAccount(@PathVariable String accountId) {
         return service.getAccount(accountId);
     }
