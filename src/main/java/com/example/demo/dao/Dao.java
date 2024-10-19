@@ -1,10 +1,12 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.*;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
 
+@Repository
 public class Dao {
     private final ArrayList<Account> accounts;
     private final ArrayList<User> users;
