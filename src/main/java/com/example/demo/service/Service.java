@@ -46,7 +46,7 @@ public class Service {
         RequestManager manager = request.getManager();
         dao.addApprovedRequestReceiver(manager.getRequestManagerId(), request.getRequestReceiverId());
         if(manager.hasEveryoneApproved()){
-            makeOrdinaryTransaction(manager.getTransaction());
+
             dao.deleteRequestManager(manager.getRequestManagerId());
             Transaction transaction = manager.getTransaction();
             makeOrdinaryTransaction(transaction);
