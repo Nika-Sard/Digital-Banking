@@ -11,6 +11,10 @@ public class User {
         return name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public String getUserId() {
         return userId;
     }
