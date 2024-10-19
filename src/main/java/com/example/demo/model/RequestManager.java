@@ -30,7 +30,7 @@ public class RequestManager {
         approvedRequestIds.add(requestReceiverId);
     }
 
-    public boolean hasEveryoneApproved(String requestReceivedId) {
+    public boolean hasEveryoneApproved() {
        return approvedRequestIds.size() == ownersId.size();
     }
 

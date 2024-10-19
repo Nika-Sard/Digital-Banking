@@ -25,15 +25,19 @@ public class Dao {
             account = new Account(String.valueOf(accounts.size()));
         else{
             ArrayList<String> ownerIds = new ArrayList<>();
-            ownerIds.add(String.valueOf(accounts.size()));
-            account = new Obshiaki(ownerIds);
+            account = new Obshiaki(String.valueOf(accounts.size()));
         }
         accounts.add(account);
         return account.getAccountId();
     }
 
     public Account getAccount(String id) {
-        return new Account(accounts.get(Integer.parseInt(id)));
+        Account acc = new Account(accounts.get(Integer.parseInt(id)));
+        if(!acc.getIsObshiak()) {
+            return acc;
+        }
+        Obshiaki obsh = new Obshiaki((Obshiaki) accounts.get(Integer.parseInt(id)));
+        return obsh;
     }
 
     public void deposit(String id, int amount) {
@@ -41,7 +45,7 @@ public class Dao {
         account.deposit(amount);
     }
 
-    public void withdraw(String id, int amount) {
+    public void withdraw(String id, double amount) {
         Account account = accounts.get(Integer.parseInt(id));
         account.withdraw(amount);
     }
@@ -61,7 +65,12 @@ public class Dao {
         user.addAccount(accountId);
     }
 
-    public String addTransaction(String senderId, String receiverId, String message, int amount) {
+    public void addAccountUser(String userId, String accountId) {
+        Obshiaki obshiaki = (Obshiaki) accounts.get(Integer.parseInt(accountId));
+        obshiaki.addOwnerId(userId);
+    }
+
+    public String addTransaction(String senderId, String receiverId, String message, double amount) {
         Transaction transaction = new Transaction(String.valueOf(transactions.size()), senderId, receiverId, message, amount);
         transactions.add(transaction);
         return transaction.getTransactionId();
