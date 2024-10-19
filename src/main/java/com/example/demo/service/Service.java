@@ -28,6 +28,14 @@ public class Service {
         //RequestManagerService managerService = new RequestManagerService(manager, this);
     }
 
+    public void makeTransaction(String senderId, String receiverId, double amount,
+                                String message) {
+        String transactionId = dao.addTransaction(senderId, receiverId, message, amount);
+        dao.setStatus(transactionId);
+        Transaction transaction = dao.getTransaction(transactionId);
+        makeOrdinaryTransaction(transaction);
+    }
+
     private void sendRequests(RequestManager manager) {
         ArrayList<String> ownersId = manager.getOwnersId();
         for(String id : ownersId) {
