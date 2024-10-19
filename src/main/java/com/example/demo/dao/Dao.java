@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -19,6 +20,11 @@ public class Dao {
         this.accounts = new ArrayList<>();
         this.users = new ArrayList<>();
         this.requestManagers = new ArrayList<>();
+        initDao();
+    }
+
+    public void initDao() {
+
     }
 
     public String addAccount(boolean isUserAccount) {
@@ -128,4 +134,13 @@ public class Dao {
         requestManager.approveRequest(receiverId);
     }
 
+    public ArrayList<Transaction> getTransactions(String accountId) {
+        ArrayList<Transaction> result = new ArrayList<>();
+        for(Transaction transaction : transactions) {
+            if((transaction.getSenderId().equals(accountId) || transaction.getReceiverId().equals(accountId)) && transaction.getStatus()) {
+                result.add(new Transaction(transaction));
+            }
+        }
+        return result;
+    }
 }

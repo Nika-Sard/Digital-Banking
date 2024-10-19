@@ -5,6 +5,7 @@ import com.example.demo.model.*;
 
 import java.util.ArrayList;
 
+@org.springframework.stereotype.Service
 public class Service {
     Dao dao;
     Service() {
@@ -15,12 +16,13 @@ public class Service {
         return dao.getAccount(id);
     }
 
-    public void makeObshiakTransaction(String transactionId, String message) {
+    public void makeObshiakTransaction(String senderId, String receiverId, double amount, String transactionMessage, String requestMessage) {
+        String transactionId = dao.addTransaction(senderId, receiverId, transactionMessage, amount);
         Transaction transaction = dao.getTransaction(transactionId);
         String id = transaction.getSenderId();
         Obshiaki sender = (Obshiaki)(dao.getAccount(id));
         String requestManagerId = dao.addRequestManager(sender.getOwnerIds(), transaction.getTransactionId(),
-                                                        message);
+                                                        requestMessage);
         RequestManager manager = dao.getRequestManager(requestManagerId);
         sendRequests(manager);
         //RequestManagerService managerService = new RequestManagerService(manager, this);
@@ -38,8 +40,10 @@ public class Service {
         Request request = dao.getRequest(requestId);
         RequestManager manager = request.getManager();
         dao.addApprovedRequestReceiver(manager.getRequestManagerId(), request.getRequestReceiverId());
-        if(manager.hasEveryoneApproved())
-            makeOrdinaryTransaction(manager.getTransaction());
+        if(manager.hasEveryoneApproved()){
+            Transaction transaction = manager.getTransaction();
+            makeOrdinaryTransaction(transaction.getSenderId(), transaction.getReceiverId(), transaction.getAmount());
+        }
     }
 
     public void rejectRequest(String requestId) {
@@ -50,12 +54,12 @@ public class Service {
         }
     }
 
-    public void makeObshiaki(String userId) {
-        User user = dao.getUser(userId);
-        String accountId = dao.addAccount(false);
-        dao.addAccountUser(userId, accountId);
-        dao.addUserAccount(userId, accountId);
-    }
+//    public void makeObshiaki(ArrayList<String> ownersId) {
+//        User user = dao.getUser(userId);
+//        String accountId = dao.addAccount(false);
+//        dao.addAccountUser(userId, accountId);
+//        dao.addUserAccount(userId, accountId);
+//    }
 
     public void joinObshiaki(String userId, String accountId) {
         dao.addAccountUser(userId, accountId);
@@ -67,12 +71,16 @@ public class Service {
         dao.addUserAccount(userId, accountId);
     }
 
-    public void makeOrdinaryTransaction(Transaction transaction) {
-        Account sender = dao.getAccount(transaction.getSenderId());
-        Account receiver = dao.getAccount(transaction.getReceiverId());
-        if(sender.getBalance() >= transaction.getAmount()) {
-            dao.withdraw(sender.getAccountId(), transaction.getAmount());
-            dao.deposit(receiver.getAccountId(), transaction.getAmount());
+    public void makeOrdinaryTransaction(String senderId, String receiverId, double amount) {
+        Account sender = dao.getAccount(senderId);
+        Account receiver = dao.getAccount(receiverId);
+        if(sender.getBalance() >= amount) {
+            dao.withdraw(sender.getAccountId(), amount);
+            dao.deposit(receiver.getAccountId(), amount);
         }
+    }
+
+    public ArrayList<Transaction> getTransactions(String accountId) {
+        return dao.getTransactions(accountId);
     }
 }
