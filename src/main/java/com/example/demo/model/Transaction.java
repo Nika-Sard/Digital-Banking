@@ -1,12 +1,14 @@
 package com.example.demo.model;
 
+import java.lang.invoke.LambdaMetafactory;
+
 public class Transaction {
     private String transactionId;
     private String senderId;
     private String receiverId;
     private String message;
     private double amount;
-    boolean isPending = false;
+    boolean isPending = true;
 
     public Transaction(String transactionId, String senderId, String receiverId, String message, double amount) {
         this.transactionId = transactionId;
@@ -25,8 +27,16 @@ public class Transaction {
         this.transactionId = transaction.getTransactionId();
     }
 
-    void setStatus(boolean isPending) {
-        this.isPending = isPending;
+    void setStatus() throws Exception {
+        if(isPending) {
+            throw new Exception("already set to true");
+        }
+        this.isPending = false;
+        ///TODO : get from the database
+        Account senderAccount = null;
+        Account recieverAccount = null;
+        senderAccount.withdraw(amount);
+        recieverAccount.deposit(amount);
     }
 
     public Transaction(String transactionId) {
