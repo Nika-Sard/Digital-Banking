@@ -3,10 +3,10 @@ package com.example.demo.model;
 import java.util.ArrayList;
 
 public class User {
-    ArrayList<String> accounts;
+    private ArrayList<String> accounts;
     private String firstName;
     private String lastName;
-    String userId;
+    private String userId;
     public String getFirstName() {
         return firstName;
     }
