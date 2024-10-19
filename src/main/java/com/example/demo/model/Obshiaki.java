@@ -7,13 +7,11 @@ public class Obshiaki extends Account{
 
     public Obshiaki(Obshiaki obshiaki) {
         this.ownerIds = (ArrayList<String>) obshiaki.ownerIds.clone();
+        super.isObshiak = true;
     }
 
     public Obshiaki(ArrayList <String>ownerIds) {
         super.isObshiak = true;
         this.ownerIds = ownerIds;
-    }
-    public RequestManager requestTransaction(Transaction transaction, String message) {
-        return new RequestManager(ownerIds, transaction, message);
     }
 }

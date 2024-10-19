@@ -7,19 +7,22 @@ public class RequestManager {
     private ArrayList<String> ownersId;
     private Transaction transaction;
     private String message;
-    ArrayList<String> approvedRequestIds;
+    private ArrayList<String> approvedRequestIds;
+    private final String requestManagerId;
 
     public RequestManager(RequestManager requestManager) {
         this.message = requestManager.message;
         this.transaction = new Transaction(requestManager.transaction);
         this.approvedRequestIds = (ArrayList<String>) requestManager.approvedRequestIds.clone();
         this.ownersId = (ArrayList<String>) requestManager.ownersId.clone();
+        this.requestManagerId = requestManager.requestManagerId;
     }
 
-    public RequestManager(ArrayList<String> ownersId, Transaction transaction, String message) {
+    public RequestManager(String requestManagerId, ArrayList<String> ownersId, Transaction transaction, String message) {
         this.ownersId = ownersId;
         this.transaction = transaction;
         this.message = message;
+        this.requestManagerId = requestManagerId;
         this.approvedRequestIds = new ArrayList<>();
     }
 
@@ -41,5 +44,9 @@ public class RequestManager {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getRequestManagerId() {
+        return  requestManagerId;
     }
 }

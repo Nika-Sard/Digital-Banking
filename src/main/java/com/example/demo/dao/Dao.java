@@ -22,11 +22,14 @@ public class Dao {
     public String addAccount(boolean isUserAccount) {
         Account account = null;
         if(isUserAccount)
-            account = new Account(String.valueOf(accounts.size()), true);
-        else
-            account = new Obshiaki(String.valueOf(accounts.size()), false);
+            account = new Account(String.valueOf(accounts.size()));
+        else{
+            ArrayList<String> ownerIds = new ArrayList<>();
+            ownerIds.add(String.valueOf(accounts.size()));
+            account = new Obshiaki(ownerIds);
+        }
         accounts.add(account);
-        return account.getId();
+        return account.getAccountId();
     }
 
     public Account getAccount(String id) {
@@ -46,7 +49,7 @@ public class Dao {
     public String addUser(String name) {
         User user = new User(String.valueOf(users.size()), name);
         users.add(user);
-        return user.getId();
+        return user.getUserId();
     }
 
     public User getUser(String id) {
@@ -55,36 +58,36 @@ public class Dao {
 
     public void addUserAccount(String userId, String accountId) {
         User user = users.get(Integer.parseInt(userId));
-        Account account = accounts.get(Integer.parseInt(accountId));
-        user.addAccount(account);
+        user.addAccount(accountId);
     }
 
     public String addTransaction(String senderId, String receiverId, String message, int amount) {
         Transaction transaction = new Transaction(String.valueOf(transactions.size()), senderId, receiverId, message, amount);
         transactions.add(transaction);
-        return transaction.getId();
+        return transaction.getTransactionId();
     }
 
     public Transaction getTransaction(String id) {
         return new Transaction(transactions.get(Integer.parseInt(id)));
     }
 
-    public String addRequestManager(String transactionId, String message, String[] ownersId) {
+    public String addRequestManager(ArrayList<String> ownersId, String transactionId, String message) {
         Transaction transaction = transactions.get(Integer.parseInt(transactionId));
-        RequestManager requestManager = new RequestManager(String.valueOf(requestManagers.size()), transaction, message, ownersId);
+        RequestManager requestManager = new RequestManager(String.valueOf(requestManagers.size()), ownersId, transaction, message);
         requestManagers.add(requestManager);
-        return requestManager.getId();
+        return requestManager.getRequestManagerId();
     }
 
     public RequestManager getRequestManager(String requestManagerId) {
         return new RequestManager(requestManagers.get(Integer.parseInt(requestManagerId)));
     }
 
-    public String addRequest(String transactionId, String message, String requestReceiverId, String requestManagerId) {
+    public String addRequest(String requestReceiverId, String requestManagerId, String transactionId, String message) {
         Transaction transaction = transactions.get(Integer.parseInt(transactionId));
-        Request request = new Request(String.valueOf(requests.size()), transaction, message, requestReceiverId, requestManagerId);
+        RequestManager requestManager = requestManagers.get(Integer.parseInt(requestManagerId));
+        Request request = new Request(String.valueOf(requests.size()), requestReceiverId, requestManager, transaction, message);
         requests.add(request);
-        return request.getId();
+        return request.getRequestId();
     }
 
     public Request getRequest(String id) {
@@ -111,7 +114,7 @@ public class Dao {
 
     public void addApprovedRequestReceiver(String requestManagerId, String receiverId) {
         RequestManager requestManager = requestManagers.get(Integer.parseInt(requestManagerId));
-        requestManager.addApprovedRequestReceiver(receiverId);
+        requestManager.approveRequest(receiverId);
     }
 
 }
