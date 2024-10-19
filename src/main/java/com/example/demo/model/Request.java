@@ -1,13 +1,21 @@
 package com.example.demo.model;
 
-public class Request{
-    Transaction transaction;
-    boolean status = false;
-    String message;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-    public Request(Transaction transaction, String message) {
+public class Request{
+    private RequestManager manager;
+    private Transaction transaction;
+    boolean status = false; // true if accept
+    private String message;
+
+    public RequestManager getManager() {
+        return manager;
+    }
+
+    public Request(RequestManager manager, Transaction transaction, String message) {
         this.transaction = transaction;
         this.message = message;
+        this.manager = manager;
     }
 
     public void setStatus(boolean status) {

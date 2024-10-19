@@ -27,9 +27,13 @@ public class Transaction {
         this.transactionId = transaction.getTransactionId();
     }
 
-    void setStatus() throws Exception {
+    void setStatus() {
         if(isPending) {
-            throw new Exception("already set to true");
+            try {
+                throw new Exception("already set to true");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
         this.isPending = false;
         ///TODO : get from the database
