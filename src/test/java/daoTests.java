@@ -196,4 +196,25 @@ public class daoTests {
         assertTrue(dao.getRequestManager(requestManagerId).hasEveryoneApproved());
     }
 
+    @Test
+    public void testRemove() {
+        Dao dao = new Dao();
+        addUsers(10, dao);
+
+        ArrayList<String> owners = new ArrayList<>();
+        owners.add("1");
+        owners.add("2");
+
+        String accountId1 = dao.addAccount(false);
+        String accountId2 = dao.addAccount(true);
+
+        dao.addUserAccount("1", accountId1);
+        dao.addUserAccount("2", accountId1);
+
+        Obshiaki obs = (Obshiaki) dao.getAccount(accountId1);
+
+        String transactionId = dao.addTransaction(accountId1, accountId2, "", 20);
+        String requestManagerId = dao.addRequestManager(owners, transactionId, "m");
+        String requestId = dao.addRequest("2", requestManagerId, transactionId, "m");
+    }
 }

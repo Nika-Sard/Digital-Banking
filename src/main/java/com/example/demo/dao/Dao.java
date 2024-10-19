@@ -101,18 +101,6 @@ public class Dao {
         return request.getRequestId();
     }
 
-    public void removeRequest(String userId, String requestId) {
-        User user = users.get(Integer.parseInt(userId));
-        requests.remove(getRequest(requestId));
-        user.removePendingRequest(requestId);
-    }
-
-
-
-    public void removeRequestManager(String RequestManagerId) {
-        RequestManager manager = getRequestManager(RequestManagerId);
-        requestManagers.remove(manager);
-    }
 
     public Request getRequest(String id) {
         return new Request(requests.get(Integer.parseInt(id)));

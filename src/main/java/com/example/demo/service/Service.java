@@ -58,9 +58,9 @@ public class Service {
         Request request = dao.getRequest(requestId);
         RequestManager manager = request.getManager();
         for(String userId : manager.getOwnersId()) {
-            dao.removeRequest(userId, requestId);
+            dao.deleteRequest(requestId);
         }
-        dao.removeRequestManager(manager.getRequestManagerId());
+        dao.deleteRequestManager(manager.getRequestManagerId());
     }
 
     public void makeObshiaki(ArrayList <String> userIds) {

@@ -27,10 +27,12 @@ public class User {
     public User(String id, String name) {
         this.name = name;
         this.userId = id;
+        this.pendingRequests = new ArrayList<>();
         this.accounts = new ArrayList<>();
     }
 
     public User(User user) {
+        this.pendingRequests = new ArrayList<>();
         this.accounts = user.getAccounts();
         this.userId = user.getUserId();
         this.name = user.name;
