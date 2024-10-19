@@ -1,21 +1,33 @@
 package com.example.demo.model;
 
-public class Request {
-    public Request(String id, Transaction transaction, String message, String requestReceiverId, String requestManagerId) {
+import org.springframework.web.bind.annotation.RequestMethod;
+
+public class Request{
+    private RequestManager manager;
+    private Transaction transaction;
+    private String message;
+
+    public RequestManager getManager() {
+        return manager;
     }
 
     public Request(Request request) {
+        this.manager = new RequestManager(request.manager);
+        this.transaction = new Transaction(request.transaction);
+        this.message = request.message;
     }
 
-    public String getId() {
-        return null;
+    public Request(RequestManager manager, Transaction transaction, String message) {
+        this.transaction = transaction;
+        this.message = message;
+        this.manager = manager;
     }
 
-    public String getRequestReceiverId() {
-        return null;
+    public Transaction getTransaction() {
+        return transaction;
     }
 
-    public String getRequestManagerId() {
-        return  null;
+    public String getMessage() {
+        return message;
     }
 }
