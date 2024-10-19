@@ -42,6 +42,7 @@ body, html {
 
 .balance-section h3 {
     font-size: 28px;
+    color: #1e2c47; /* Enhanced color for better visibility */
 }
 
 .balance-section p {
@@ -64,6 +65,7 @@ body, html {
     padding: 20px;
     color: white;
     position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
 }
 
 .card-chip {
@@ -104,6 +106,7 @@ body, html {
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s; /* Added scaling effect on hover */
 }
 
 .action-button i {
@@ -113,20 +116,22 @@ body, html {
 
 .action-button:hover {
     background-color: #f1f1f1;
+    transform: scale(1.05); /* Slight scale effect on hover */
 }
 
-/* Transaction History */
-/* Transaction History */
-.transaction-history {
+/* Transaction History & Requests */
+.transaction-history, .transaction-requests {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
 /* Scrollable transaction list */
 .transaction-list {
-    max-height: 200px; /* Adjust the height as needed */
+    min-height: 180px;
+    max-height: 180px; /* Adjust the height as needed */
     overflow-y: auto; /* Enable vertical scrolling */
     margin-top: 10px; /* Space between header and list */
 }
@@ -192,7 +197,8 @@ body, html {
 .app-footer button:hover {
     background-color: #f1f1f1;
 }
-/* TransferModal.css */
+
+/* Modal Styles */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -268,6 +274,7 @@ body, html {
 .modal-content button:last-child:hover {
     background-color: #d4d4d4; /* Darker shade on hover for cancel */
 }
+
 /* Hide scrollbar for WebKit browsers */
 .transaction-list {
     overflow-y: scroll; /* Enable vertical scrolling */
@@ -278,4 +285,41 @@ body, html {
 /* Hide the scrollbar arrows and track */
 .transaction-list::-webkit-scrollbar {
     display: none; /* Hides the scrollbar completely */
+}
+/* Approve and Decline Buttons */
+.action-buttons {
+    display: flex;
+    gap: 10px; /* Add spacing between buttons */
+}
+
+.approve-btn, .decline-btn {
+    border: none;
+    border-radius: 50%;
+    width: 30px;  /* Smaller size */
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: white; /* Symbol color */
+    transition: background-color 0.3s ease;
+}
+
+/* Approve Button */
+.approve-btn {
+    background-color: #1e2c47; /* Use darker background color */
+}
+
+.approve-btn:hover {
+    background-color: #2a3b60; /* Slightly lighter on hover */
+}
+
+/* Decline Button */
+.decline-btn {
+    background-color: #888; /* Neutral color contrasting background */
+}
+
+.decline-btn:hover {
+    background-color: #aaa; /* Slight hover effect */
 }

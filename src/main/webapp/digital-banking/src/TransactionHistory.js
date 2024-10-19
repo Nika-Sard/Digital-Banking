@@ -26,6 +26,9 @@ export default function TransactionHistory({userId, accountId}) {
 
     return (
         <div className="transaction-history">
+                <div className="transaction-header">
+                    <h4>Transaction History</h4>
+                </div>
             <div className="transaction-list">
                 {transactions.length > 0 ? (
                     transactions.map((transaction) => (
