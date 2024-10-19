@@ -51,22 +51,20 @@ public class Service {
         if(manager.hasEveryoneApproved()){
             dao.setStatus(dao.getRequest(requestId).getTransaction().getTransactionId());
             makeOrdinaryTransaction(manager.getTransaction());
+            dao.deleteRequestManager(manager.getRequestManagerId());
         }
     }
 
     public void rejectRequest(String requestId) {
         Request request = dao.getRequest(requestId);
         RequestManager manager = request.getManager();
-        for(String userId : manager.getOwnersId()) {
-            dao.deleteRequest(requestId);
-        }
         dao.deleteRequestManager(manager.getRequestManagerId());
     }
 
     public void makeObshiaki(ArrayList <String> userIds) {
+        String accountId = dao.addAccount(false);
         for(String userId : userIds){
             User user = dao.getUser(userId);
-            String accountId = dao.addAccount(false);
             dao.addAccountUser(userId, accountId);
             dao.addUserAccount(userId, accountId);
         }

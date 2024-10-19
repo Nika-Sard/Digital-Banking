@@ -121,6 +121,12 @@ public class Dao {
     }
 
     public void deleteRequestManager(String id) {
+        for(Request request : requests) {
+            if(request == null) continue;
+            if(request.getManager().getRequestManagerId().equals(id)) {
+                deleteRequest(request.getRequestId());
+            }
+        }
         requestManagers.set(Integer.parseInt(id), null);
     }
 
