@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Account;
+import com.example.demo.model.Request;
 import com.example.demo.model.Transaction;
 import com.example.demo.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,4 +50,9 @@ public class Controller {
 //    public void makeObshiaki(@PathVariable ArrayList<String> ownersIds) {
 //        service.makeObshiaki(ownersIds);
 //    }
+
+    @GetMapping("/getRequests/{userId}")
+    public ArrayList<Request> getRequests(@PathVariable String userId) {
+        return service.getRequests(userId);
+    }
 }

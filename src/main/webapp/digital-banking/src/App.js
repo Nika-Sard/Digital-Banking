@@ -20,6 +20,7 @@ const App = () => {
         { id: 1, description: 'Payment to Vendor A', date: '2024-10-19', amount: '100', status: 'pending' },
         { id: 2, description: 'Transfer to User B', date: '2024-10-19', amount: '50', status: 'pending' },
     ]);
+    const [account, setAccount] = useState("OBSHIAKI");
 
     useEffect(() => {
         const url = new URL(window.location.href);
@@ -27,7 +28,7 @@ const App = () => {
         const newUserId = params.get('userId');
         const newAccountId = params.get('accountId');
 
-        if (newAccountId !== accountId) {
+        if (newAccountId !== accountId || newUserId !== userId) {
             setUserId(newUserId);
             setAccountId(newAccountId);
             fetch(`http://localhost:8080/getAccount/` + newAccountId, {
@@ -40,10 +41,16 @@ const App = () => {
                 .then(data => {
                     console.log(data);
                     setBalance(data.balance);
+                    const isObshiaki = data.isObshiak;
+                    if(isObshiaki){
+                        setAccount("OBSHIAKI");
+                    } else {
+                        setAccount("User Account");
+                    }
                 })
                 .catch(error => console.error('Error:', error));
         }
-    }, [accountId]);
+    }, [accountId, userId]);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -98,7 +105,7 @@ const App = () => {
         <div className="app-container">
             <header className="app-header">
                 <div className="user-icon">RL</div>
-                <h2>OBSHIAKI</h2>
+                <h2>{account}</h2>
                 <div className="notification-icon">
                     <i className="fas fa-bell"></i>
                 </div>
@@ -108,67 +115,74 @@ const App = () => {
                 <h3>€ {balance}</h3>
             </div>
 
-            <CardComponent accountId={accountId} />
+            <CardComponent accountId={accountId}/>
 
             <div className="action-buttons">
-                <button className="action-button" onClick={openTopUp}>
-                    <i className="fas fa-plus-circle"></i>
-                    <br />
-                    Top up
-                </button>
-                <button className="action-button" onClick={openAddUserModal}>
-                    <i className="fas fa-user-plus"></i>
-                    <br />
-                    Add User
-                </button>
+                {
+                    account === "OBSHIAKI" ? (
+                        <>
+                            <button className="action-button" onClick={openTopUp}>
+                                <i className="fas fa-plus-circle"></i>
+                                <br/>
+                                Top up
+                            </button>
+                            <button className="action-button" onClick={openAddUserModal}>
+                                <i className="fas fa-user-plus"></i>
+                                <br/>
+                                Add User
+                            </button>
+                        </>
+                    ) : null
+                }
                 <button className="action-button" onClick={openModal}>
                     <i className="fas fa-arrow-circle-up"></i>
-                    <br />
+                    <br/>
                     Transfer
                 </button>
                 <button className="action-button">
                     <i className="fas fa-info-circle"></i>
-                    <br />
+                    <br/>
                     Details
                 </button>
             </div>
 
             {showTransactionRequests ? (
                 <TransactionRequests
+                    userId={userId}
                     transactions={transactions}
                     onApprove={handleApprove}
                     onDisapprove={handleDisapprove}
                 />
             ) : (
-                <TransactionHistory userId={userId} accountId={accountId} />
+                <TransactionHistory userId={userId} accountId={accountId}/>
             )}
 
             <footer className="app-footer">
                 <button>
                     <i className="fas fa-home"></i>
-                    <br />
+                    <br/>
                     Home
                 </button>
                 <button onClick={() => setShowTransactionRequests(false)}>
                     <i className="fas fa-list-alt"></i>
-                    <br />
+                    <br/>
                     Transactions
                 </button>
                 <button onClick={() => setShowTransactionRequests(true)}>
                     <i className="fas fa-envelope"></i>
-                    <br />
+                    <br/>
                     Requests
                 </button>
                 <button>
                     <i className="fas fa-cog"></i>
-                    <br />
+                    <br/>
                     Manage
                 </button>
             </footer>
 
-            <TransferModal isOpen={isModalOpen} onClose={closeModal} />
-            <TopUpModal isOpen={isTopUpOpen} onClose={closeTopUp} />
-            <AddUserModal isOpen={isAddUserModalOpen} onClose={closeAddUserModal} onAddUser={handleAddUser} />
+            <TransferModal accountId={accountId} isOpen={isModalOpen} onClose={closeModal}/>
+            <TopUpModal isOpen={isTopUpOpen} onClose={closeTopUp}/>
+            <AddUserModal isOpen={isAddUserModalOpen} onClose={closeAddUserModal} onAddUser={handleAddUser}/>
         </div>
     );
 };

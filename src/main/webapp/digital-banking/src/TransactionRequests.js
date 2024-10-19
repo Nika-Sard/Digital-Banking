@@ -1,6 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-const TransactionRequests = ({ transactions, onApprove, onDecline }) => {
+const TransactionRequests = ({ transactions, onApprove, onDecline, userId }) => {
+    useEffect(() => {
+        const parseRequests = (Request) => {
+            console.log(Request);
+            return Request;
+        };
+
+        fetch(`http://localhost:8080/getRequests/` + userId, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                data.map(parseRequests);
+            })
+            .catch(error => console.error('Error:', error));
+    }, [userId]);
     return (
         <div className="transaction-requests">
             <div className="transaction-header">

@@ -84,4 +84,8 @@ public class Service {
     public ArrayList<Transaction> getTransactions(String accountId) {
         return dao.getTransactions(accountId);
     }
+
+    public ArrayList<Request> getRequests(String userId) {
+        return dao.getRequestsByUser(userId);
+    }
 }

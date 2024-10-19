@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
-const TransferModal = ({ isOpen, onClose }) => {
-    const [accountNumber, setAccountNumber] = useState('');
+const TransferModal = ({ isOpen, onClose, accountId }) => {
+    const [receiverId, setReceiverId] = useState('');
     const [amount, setAmount] = useState('');
     const [description, setDescripiton] = useState('');
-
     const handleTransfer = () => {
+        const url = 'http://localhost:8080/doTransaction/' + accountId + '/' + receiverId + '/' + amount;
         // Implement the transfer logic here (e.g., API call)
-        console.log(`Transferring €${amount} to account ${accountNumber}`);
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).catch(error => console.error('Error:', error));
 
         // Close the modal after transferring
         onClose();
@@ -23,8 +28,8 @@ const TransferModal = ({ isOpen, onClose }) => {
                     <label>Account Number:</label>
                     <input
                         type="text"
-                        value={accountNumber}
-                        onChange={(e) => setAccountNumber(e.target.value)}
+                        value={receiverId}
+                        onChange={(e) => setReceiverId(e.target.value)}
                     />
                 </div>
                 <div>
