@@ -40,7 +40,7 @@ public class Dao {
         return obsh;
     }
 
-    public void deposit(String id, int amount) {
+    public void deposit(String id, double amount) {
         Account account = accounts.get(Integer.parseInt(id));
         account.deposit(amount);
     }
