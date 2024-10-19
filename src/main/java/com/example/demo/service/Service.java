@@ -31,7 +31,7 @@ public class Service {
     public void makeTransaction(String senderId, String receiverId, double amount,
                                 String message) {
         String transactionId = dao.addTransaction(senderId, receiverId, message, amount);
-        dao.setStatus(transactionId);
+
         Transaction transaction = dao.getTransaction(transactionId);
         makeOrdinaryTransaction(transaction);
     }
@@ -49,7 +49,6 @@ public class Service {
         RequestManager manager = request.getManager();
         dao.addApprovedRequestReceiver(manager.getRequestManagerId(), request.getRequestReceiverId());
         if(manager.hasEveryoneApproved()){
-            dao.setStatus(dao.getRequest(requestId).getTransaction().getTransactionId());
             makeOrdinaryTransaction(manager.getTransaction());
             dao.deleteRequestManager(manager.getRequestManagerId());
         }
@@ -79,6 +78,7 @@ public class Service {
         Account sender = dao.getAccount(transaction.getSenderId());
         Account receiver = dao.getAccount(transaction.getReceiverId());
         if(sender.getBalance() >= transaction.getAmount()) {
+            dao.setStatus(transaction.getTransactionId());
             dao.withdraw(sender.getAccountId(), transaction.getAmount());
             dao.deposit(receiver.getAccountId(), transaction.getAmount());
         }

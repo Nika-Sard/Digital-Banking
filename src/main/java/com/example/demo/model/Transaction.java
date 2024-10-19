@@ -28,7 +28,7 @@ public class Transaction {
     }
 
     public void setStatus() {
-        this.isPending = true;
+        this.isPending = false;
     }
 
     public Transaction(String transactionId) {
