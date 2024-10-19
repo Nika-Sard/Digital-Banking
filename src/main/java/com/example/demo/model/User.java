@@ -49,6 +49,7 @@ public class User {
     public void answerRequest(Request request, boolean accepts) {
         request.setStatus(accepts);
         request.getManager().response(request, userId);
+        requests.remove(request);
     }
 
     public User(User user) {
