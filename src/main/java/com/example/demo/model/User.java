@@ -28,7 +28,7 @@ public class User {
     public void removeAccount(String accountId) {
         accounts.remove(accountId);
     }
-    User(String firstName, String lastName, String userId) {
+    public User(String firstName, String lastName, String userId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userId = userId;
