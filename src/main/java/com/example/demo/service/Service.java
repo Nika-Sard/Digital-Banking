@@ -46,8 +46,9 @@ public class Service {
         Request request = dao.getRequest(requestId);
         RequestManager manager = request.getManager();
         for(String userId : manager.getOwnersId()) {
-
+            dao.removeRequest(userId, requestId);
         }
+        dao.removeRequestManager(manager.getRequestManagerId());
     }
 
     public void makeObshiaki(String userId) {
@@ -75,4 +76,5 @@ public class Service {
             dao.deposit(receiver.getAccountId(), transaction.getAmount());
         }
     }
+
 }

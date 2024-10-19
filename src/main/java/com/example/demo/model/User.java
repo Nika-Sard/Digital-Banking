@@ -6,7 +6,7 @@ public class User {
     private ArrayList<String> accounts;
     private String name;
     private String userId;
-
+    private ArrayList<String>pendingRequests;
     public String getName() {
         return name;
     }
@@ -34,5 +34,12 @@ public class User {
         this.accounts = user.getAccounts();
         this.userId = user.getUserId();
         this.name = user.name;
+    }
+
+    public void addPendingRequest(String requestId) {
+        pendingRequests.add(requestId);
+    }
+    public void removePendingRequest(String requestId) {
+        pendingRequests.remove(requestId);
     }
 }
