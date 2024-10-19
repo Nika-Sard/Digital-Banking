@@ -3,11 +3,9 @@ package com.example.demo.model;
 public abstract class Account {
     private String accountId;
     private double balance;
-
     public String getAccountId() {
         return accountId;
     }
-
     public double getBalance() {
         return balance;
     }
@@ -17,11 +15,8 @@ public abstract class Account {
     public void withdraw(double amount) {
         balance -= amount;
     }
-
     public Account(){
-
     }
-
     public Account(String accountId) {
         this.accountId = accountId;
         this.balance = 0;
