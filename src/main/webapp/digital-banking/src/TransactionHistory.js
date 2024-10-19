@@ -4,23 +4,24 @@ export default function TransactionHistory({userId, accountId}) {
     const [transactions, setTransactions] = useState([]); // Use initial transaction data
 
     useEffect(() => {
-            const parseTransaction = (transaction) => {
-                if(accountId !== transaction.receiverId) {
-                    transaction.amount *= -1;
-                }
-                transaction.message = 'Sender: ' + transaction.senderId + ' Receiver: ' + transaction.receiverId + '. Message: ' + transaction.message;
-                return transaction;
-            };
-            fetch(`http://localhost:8080/getTransactions/` + accountId, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
+        const parseTransaction = (transaction) => {
+            console.log(transaction);
+            if(accountId !== transaction.receiverId) {
+                transaction.amount *= -1;
+            }
+            transaction.message = 'Sender: ' + transaction.senderId + ' Receiver: ' + transaction.receiverId + '. Message: ' + transaction.message;
+            return transaction;
+        };
+        fetch(`http://localhost:8080/getTransactions/` + accountId, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                setTransactions(data.map(parseTransaction));
             })
-                .then(response => response.json())
-                .then(data => {
-                    setTransactions(data.map(parseTransaction));
-                })
                 .catch(error => console.error('Error:', error));
     }, [accountId]);
 

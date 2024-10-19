@@ -16,10 +16,6 @@ const App = () => {
     const [userId, setUserId] = useState(0);
     const [accountId, setAccountId] = useState(0);
     const [showTransactionRequests, setShowTransactionRequests] = useState(false);
-    const [transactions, setTransactions] = useState([
-        { id: 1, description: 'Payment to Vendor A', date: '2024-10-19', amount: '100', status: 'pending' },
-        { id: 2, description: 'Transfer to User B', date: '2024-10-19', amount: '50', status: 'pending' },
-    ]);
     const [account, setAccount] = useState("OBSHIAKI");
 
     useEffect(() => {
@@ -50,7 +46,7 @@ const App = () => {
                 })
                 .catch(error => console.error('Error:', error));
         }
-    }, [accountId, userId]);
+    }, []);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -147,12 +143,7 @@ const App = () => {
             </div>
 
             {showTransactionRequests ? (
-                <TransactionRequests
-                    userId={userId}
-                    transactions={transactions}
-                    onApprove={handleApprove}
-                    onDisapprove={handleDisapprove}
-                />
+                <TransactionRequests userId={userId}/>
             ) : (
                 <TransactionHistory userId={userId} accountId={accountId}/>
             )}
@@ -180,7 +171,7 @@ const App = () => {
                 </button>
             </footer>
 
-            <TransferModal accountId={accountId} isOpen={isModalOpen} onClose={closeModal}/>
+            <TransferModal account={account} accountId={accountId} isOpen={isModalOpen} onClose={closeModal}/>
             <TopUpModal isOpen={isTopUpOpen} onClose={closeTopUp}/>
             <AddUserModal isOpen={isAddUserModalOpen} onClose={closeAddUserModal} onAddUser={handleAddUser}/>
         </div>

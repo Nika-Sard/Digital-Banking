@@ -195,8 +195,6 @@ public class daoTests {
         dao.addApprovedRequestReceiver(requestManagerId, "2");
         assertTrue(dao.getRequestManager(requestManagerId).hasEveryoneApproved());
     }
-
-<<<<<<< HEAD
     @Test
     public void testRemove() {
         Dao dao = new Dao();
@@ -218,6 +216,4 @@ public class daoTests {
         String requestManagerId = dao.addRequestManager(owners, transactionId, "m");
         String requestId = dao.addRequest("2", requestManagerId, transactionId, "m");
     }
-=======
->>>>>>> Front
 }
