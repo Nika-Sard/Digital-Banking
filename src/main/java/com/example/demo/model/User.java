@@ -8,8 +8,6 @@ public class User {
     private String lastName;
     private String userId;
 
-    private ArrayList<Request> requests;
-
     public String getFirstName() {
         return firstName;
     }
@@ -35,21 +33,6 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userId = userId;
-        this.requests = requests;
-    }
-
-    public ArrayList<Request> getRequests() {
-        return requests;
-    }
-
-    public void sendRequest(Request request) {
-        requests.add(request);
-    }
-
-    public void answerRequest(Request request, boolean accepts) {
-        request.setStatus(accepts);
-        request.getManager().response(request, userId);
-        requests.remove(request);
     }
 
     public User(User user) {
@@ -57,10 +40,5 @@ public class User {
         this.userId = user.getUserId();
         this.lastName = user.getLastName();
         this.firstName = user.getFirstName();
-        this.requests = user.getRequests();
-    }
-
-    public void removeRequest(Request request) {
-        requests.remove(request);
     }
 }

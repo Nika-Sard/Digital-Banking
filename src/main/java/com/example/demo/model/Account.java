@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-public abstract class Account {
+public class Account {
     private String accountId;
     private double balance;
     protected boolean isObshiak;
@@ -23,8 +23,5 @@ public abstract class Account {
         this.accountId = accountId;
         this.balance = 0;
         isObshiak = false;
-    }
-    public void requestTransaction(Transaction transaction) {
-
     }
 }

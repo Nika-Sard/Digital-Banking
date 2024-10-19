@@ -8,8 +8,7 @@ public class Obshiaki extends Account{
         super.isObshiak = true;
         this.ownerIds = ownerIds;
     }
-    public void requestTransaction(Transaction transaction, String message) {
-        RequestManager manager = new RequestManager(ownerIds, transaction, message);
-        manager.sendRequests();
+    public RequestManager requestTransaction(Transaction transaction, String message) {
+        return new RequestManager(ownerIds, transaction, message);
     }
 }

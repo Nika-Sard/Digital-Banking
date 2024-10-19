@@ -28,19 +28,7 @@ public class Transaction {
     }
 
     void setStatus() {
-        if(isPending) {
-            try {
-                throw new Exception("already set to true");
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-        this.isPending = false;
-        ///TODO : get from the database
-        Account senderAccount = null;
-        Account recieverAccount = null;
-        senderAccount.withdraw(amount);
-        recieverAccount.deposit(amount);
+        this.isPending = true;
     }
 
     public Transaction(String transactionId) {

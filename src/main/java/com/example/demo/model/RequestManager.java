@@ -10,31 +10,33 @@ public class RequestManager {
 
     HashMap<String, Request> requestHashMap;
 
+    ArrayList<String> approvedRequestIds;
+
+
     public RequestManager(ArrayList<String> ownersId, Transaction transaction, String message) {
         this.ownersId = ownersId;
         this.transaction = transaction;
         this.message = message;
-    }
-    public void sendRequests() {
-        for(String ownerId : ownersId) {
-            User owner = null; ///get owner
-            Request request = new Request(this, transaction, message);
-            owner.sendRequest(request);
-            requestHashMap.put(ownerId, request);
-        }
+        this.approvedRequestIds = new ArrayList<>();
     }
 
-    public void response(Request request, String userId) {
-        if(request.getStatus()) {
-            requestHashMap.remove(userId);
-            if(requestHashMap.isEmpty()) {
-                transaction.setStatus();
-            }
-        } else {
-            for(String curId: requestHashMap.keySet()) {
-                User curUser = null; /// base
-                curUser.removeRequest(requestHashMap.get(curUser));
-            }
-        }
+    public void approveRequest(String requestReceiverId) {
+        approvedRequestIds.add(requestReceiverId);
+    }
+
+    public boolean hasEveryoneApproved(String requestReceivedId) {
+       return approvedRequestIds.size() == ownersId.size();
+    }
+
+    public ArrayList<String> getOwnersId() {
+        return ownersId;
+    }
+
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }
