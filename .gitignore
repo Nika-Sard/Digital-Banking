@@ -1,3 +1,30 @@
+### REACT ###
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/src/main/webapp/digital-banking/node_modules
+/src/main/webapp/digital-banking/.pnp
+/src/main/webapp/digital-banking/.pnp.js
+
+# testing
+/src/main/webapp/digital-banking/coverage
+
+# production
+/src/main/webapp/digital-banking/build
+
+# misc
+/src/main/webapp/digital-banking/.DS_Store
+/src/main/webapp/digital-banking/.env.local
+/src/main/webapp/digital-banking/.env.development.local
+/src/main/webapp/digital-banking/.env.test.local
+/src/main/webapp/digital-banking/.env.production.local
+
+/src/main/webapp/digital-banking/npm-debug.log*
+/src/main/webapp/digital-banking/yarn-debug.log*
+/src/main/webapp/digital-banking/yarn-error.log*
+
+
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
