@@ -72,26 +72,6 @@ const App = () => {
         setIsAddUserModalOpen(false);
     };
 
-    const handleApprove = (transactionId) => {
-        const updatedTransactions = transactions.map((transaction) =>
-            transaction.id === transactionId
-                ? { ...transaction, status: 'approved' }
-                : transaction
-        );
-        setTransactions(updatedTransactions);
-        alert(`Transaction ${transactionId} has been approved.`);
-    };
-
-    const handleDisapprove = (transactionId) => {
-        const updatedTransactions = transactions.map((transaction) =>
-            transaction.id === transactionId
-                ? { ...transaction, status: 'declined' }
-                : transaction
-        );
-        setTransactions(updatedTransactions);
-        alert(`Transaction ${transactionId} has been declined.`);
-    };
-
     const handleAddUser = (userIdToAdd) => {
         // Logic for adding the user to the collaborative account
         alert(`User ${userIdToAdd} has been invited to the collaborative account.`);
@@ -171,7 +151,7 @@ const App = () => {
                 </button>
             </footer>
 
-            <TransferModal account={account} accountId={accountId} isOpen={isModalOpen} onClose={closeModal}/>
+            <TransferModal userId={userId} account={account} accountId={accountId} isOpen={isModalOpen} onClose={closeModal}/>
             <TopUpModal isOpen={isTopUpOpen} onClose={closeTopUp}/>
             <AddUserModal isOpen={isAddUserModalOpen} onClose={closeAddUserModal} onAddUser={handleAddUser}/>
         </div>

@@ -10,9 +10,6 @@ const CardComponent = ({accountId}) => {
                     <p>PULSE</p>
                     <p>{accountId}</p>
                 </div>
-                <div className="visa-logo">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa Logo" />
-                </div>
             </div>
         </div>
     );

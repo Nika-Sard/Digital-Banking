@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 
-const TransferModal = ({ isOpen, onClose, accountId, account }) => {
+const TransferModal = ({ isOpen, onClose, accountId, account, userId }) => {
     const [receiverId, setReceiverId] = useState('');
     const [amount, setAmount] = useState('');
     const [description, setDescripiton] = useState('');
     const handleTransfer = () => {
         let url = 'http://localhost:8080/doTransaction/' + accountId + '/' + receiverId + '/' + amount + '/' + description;
         if (account === "OBSHIAKI") {
-            url = 'http://localhost:8080/requestTransaction/' + accountId + '/' + receiverId + '/' + amount + '/' + description + '/ravi';
+            url = 'http://localhost:8080/requestTransaction/' + accountId + '/' + receiverId + '/' + amount + '/' + description + '/some purpose. Requester: ' + userId;
         }
         // Implement the transfer logic here (e.g., API call)
         fetch(url, {

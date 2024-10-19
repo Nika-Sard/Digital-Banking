@@ -4,8 +4,9 @@ const TransactionRequests = ({ userId }) => {
     const [requests, setRequests] = useState([]);
     useEffect(() => {
         const parseRequests = (request) => {
-
             console.log(request);
+            const transaction = request.transaction;
+            request.message = 'Receiver: ' + transaction.receiverId + '. ' + request.message;
             return request;
         };
 
