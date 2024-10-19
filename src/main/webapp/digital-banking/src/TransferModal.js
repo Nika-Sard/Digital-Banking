@@ -3,11 +3,13 @@ import React, {useEffect, useState} from 'react';
 const TransferModal = ({ isOpen, onClose, accountId, account, userId }) => {
     const [receiverId, setReceiverId] = useState('');
     const [amount, setAmount] = useState('');
-    const [description, setDescripiton] = useState('');
+    const [description, setDescripiton] = useState(' ');
+    const [requesterDescription, setRequesterDescription] = useState(' ');
     const handleTransfer = () => {
         let url = 'http://localhost:8080/doTransaction/' + accountId + '/' + receiverId + '/' + amount + '/' + description;
         if (account === "OBSHIAKI") {
-            url = 'http://localhost:8080/requestTransaction/' + accountId + '/' + receiverId + '/' + amount + '/' + description + '/some purpose. Requester: ' + userId;
+            url = 'http://localhost:8080/requestTransaction/' + accountId + '/' + receiverId + '/' + amount + '/' + description + '/' + requesterDescription + ' . Requester: ' + userId;
+            console.log(requesterDescription);
         }
         // Implement the transfer logic here (e.g., API call)
         fetch(url, {
@@ -44,13 +46,25 @@ const TransferModal = ({ isOpen, onClose, accountId, account, userId }) => {
                     />
                 </div>
                 <div>
-                    <label>Description:</label>
+                    <label>Transaction Purpose:</label>
                     <input
                         type="text"
                         value={description}
                         onChange={(e) => setDescripiton(e.target.value)}
                     />
                 </div>
+                {
+                    account === "OBSHIAKI" ? (
+                        <div>
+                            <label>Requester Purpose:</label>
+                            <input
+                                type="text"
+                                value={requesterDescription}
+                                onChange={(e) => setRequesterDescription(e.target.value)}
+                            />
+                        </div>
+                    ) : null
+                }
                 <button onClick={handleTransfer}>Transfer</button>
                 <button onClick={onClose}>Cancel</button>
             </div>

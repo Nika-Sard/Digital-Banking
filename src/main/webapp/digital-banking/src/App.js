@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CardComponent from './CardComponent';
 import TransactionHistory from './TransactionHistory';
 import TransferModal from './TransferModal';
@@ -18,35 +18,33 @@ const App = () => {
     const [showTransactionRequests, setShowTransactionRequests] = useState(false);
     const [account, setAccount] = useState("OBSHIAKI");
 
-    useEffect(() => {
-        const url = new URL(window.location.href);
-        const params = new URLSearchParams(url.search);
-        const newUserId = params.get('userId');
-        const newAccountId = params.get('accountId');
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    const newUserId = params.get('userId');
+    const newAccountId = params.get('accountId');
 
-        if (newAccountId !== accountId || newUserId !== userId) {
-            setUserId(newUserId);
-            setAccountId(newAccountId);
-            fetch(`http://localhost:8080/getAccount/` + newAccountId, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
+    if (newAccountId !== accountId || newUserId !== userId) {
+        setUserId(newUserId);
+        setAccountId(newAccountId);
+        fetch(`http://localhost:8080/getAccount/` + newAccountId, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setBalance(data.balance);
+                const isObshiaki = data.isObshiak;
+                if(isObshiaki){
+                    setAccount("OBSHIAKI");
+                } else {
+                    setAccount("User Account");
                 }
             })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    setBalance(data.balance);
-                    const isObshiaki = data.isObshiak;
-                    if(isObshiaki){
-                        setAccount("OBSHIAKI");
-                    } else {
-                        setAccount("User Account");
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        }
-    }, []);
+            .catch(error => console.error('Error:', error));
+    }
 
     const openModal = () => {
         setIsModalOpen(true);

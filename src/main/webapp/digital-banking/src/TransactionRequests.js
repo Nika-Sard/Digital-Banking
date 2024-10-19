@@ -32,7 +32,7 @@ const TransactionRequests = ({ userId }) => {
                 'Content-Type': 'application/json',
             }
         }).catch(error => console.error('Error:', error));
-        setRequests(requests.filter((request) => request !== requestId));
+        setRequests(requests.filter((request) => request.requestId !== requestId));
     };
 
     const onDecline = (requestId) => {
@@ -44,6 +44,7 @@ const TransactionRequests = ({ userId }) => {
             }
         }).catch(error => console.error('Error:', error));
         setRequests(requests.filter((request) => request !== requestId));
+        setRequests(requests.filter((request) => request.requestId !== requestId));
     };
 
     return (
@@ -59,7 +60,7 @@ const TransactionRequests = ({ userId }) => {
                             <div className="transaction-details">
                                 <p>{request.message}</p>
                             </div>
-                            <p className="transaction-amount">€ {request.amount}</p>
+                            <p className="transaction-amount">€ {request.transaction.amount}</p>
                             <div className="action-buttons">
                                 <button
                                     className="approve-btn"
