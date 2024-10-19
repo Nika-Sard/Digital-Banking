@@ -15,7 +15,9 @@ public class Service {
         return dao.getAccount(id);
     }
 
-    public void makeObshiakTransaction(String transactionId, String message) {
+    public void makeObshiakTransaction(String senderId, String receiverId, double amount,
+                                       String transactionMessage, String message) {
+        String transactionId = dao.addTransaction(senderId, receiverId, transactionMessage, amount);
         Transaction transaction = dao.getTransaction(transactionId);
         String id = transaction.getSenderId();
         Obshiaki sender = (Obshiaki)(dao.getAccount(id));
@@ -38,8 +40,10 @@ public class Service {
         Request request = dao.getRequest(requestId);
         RequestManager manager = request.getManager();
         dao.addApprovedRequestReceiver(manager.getRequestManagerId(), request.getRequestReceiverId());
-        if(manager.hasEveryoneApproved())
+        if(manager.hasEveryoneApproved()){
+            dao.setStatus(dao.getRequest(requestId).getTransaction().getTransactionId());
             makeOrdinaryTransaction(manager.getTransaction());
+        }
     }
 
     public void rejectRequest(String requestId) {
@@ -51,16 +55,13 @@ public class Service {
         dao.removeRequestManager(manager.getRequestManagerId());
     }
 
-    public void makeObshiaki(String userId) {
-        User user = dao.getUser(userId);
-        String accountId = dao.addAccount(false);
-        dao.addAccountUser(userId, accountId);
-        dao.addUserAccount(userId, accountId);
-    }
-
-    public void joinObshiaki(String userId, String accountId) {
-        dao.addAccountUser(userId, accountId);
-        dao.addUserAccount(userId, accountId);
+    public void makeObshiaki(ArrayList <String> userIds) {
+        for(String userId : userIds){
+            User user = dao.getUser(userId);
+            String accountId = dao.addAccount(false);
+            dao.addAccountUser(userId, accountId);
+            dao.addUserAccount(userId, accountId);
+        }
     }
 
     public void addUserAccount(String userId) {

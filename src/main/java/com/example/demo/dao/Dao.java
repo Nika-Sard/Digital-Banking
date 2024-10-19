@@ -95,17 +95,19 @@ public class Dao {
         Transaction transaction = transactions.get(Integer.parseInt(transactionId));
         RequestManager requestManager = requestManagers.get(Integer.parseInt(requestManagerId));
         Request request = new Request(String.valueOf(requests.size()), requestReceiverId, requestManager, transaction, message);
-        User user = getUser(requestReceiverId);
+        User user = users.get(Integer.parseInt(requestReceiverId));
         user.addPendingRequest(request.getRequestId());
         requests.add(request);
         return request.getRequestId();
     }
 
     public void removeRequest(String userId, String requestId) {
-        User user = getUser(userId);
+        User user = users.get(Integer.parseInt(userId));
         requests.remove(getRequest(requestId));
         user.removePendingRequest(requestId);
     }
+
+
 
     public void removeRequestManager(String RequestManagerId) {
         RequestManager manager = getRequestManager(RequestManagerId);
@@ -138,5 +140,7 @@ public class Dao {
         RequestManager requestManager = requestManagers.get(Integer.parseInt(requestManagerId));
         requestManager.approveRequest(receiverId);
     }
-
+    public void setStatus(String transactionId) {
+        transactions.get(Integer.parseInt(transactionId)).setStatus();
+    }
 }
