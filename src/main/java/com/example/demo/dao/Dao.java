@@ -145,6 +145,7 @@ public class Dao {
     public ArrayList<Request> getRequestsByUser(String userId) {
         ArrayList<Request> result = new ArrayList<>();
         for(Request request : requests) {
+            if (request == null) continue;
             if (request.getRequestReceiverId().equals(userId)) {
                 result.add(new Request(request));
             }
@@ -177,7 +178,7 @@ public class Dao {
     public ArrayList<Transaction> getTransactions(String accountId) {
         ArrayList<Transaction> result = new ArrayList<>();
         for(Transaction transaction : transactions) {
-            if((transaction.getSenderId().equals(accountId) || transaction.getReceiverId().equals(accountId)) && transaction.getStatus()) {
+            if((transaction.getSenderId().equals(accountId) || transaction.getReceiverId().equals(accountId)) && !transaction.getStatus()) {
                 result.add(new Transaction(transaction));
             }
         }

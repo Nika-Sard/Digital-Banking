@@ -43,14 +43,17 @@ public class Service {
 
     public void approveRequest(String requestId) {
         Request request = dao.getRequest(requestId);
-        RequestManager manager = request.getManager();
+        RequestManager manager = dao.getRequestManager(request.getManager().getRequestManagerId());
         dao.addApprovedRequestReceiver(manager.getRequestManagerId(), request.getRequestReceiverId());
+        manager = dao.getRequestManager(request.getManager().getRequestManagerId());
         if(manager.hasEveryoneApproved()){
-
+            System.out.println("entered here ---------------");
             dao.deleteRequestManager(manager.getRequestManagerId());
             Transaction transaction = manager.getTransaction();
             makeOrdinaryTransaction(transaction);
         }
+        System.out.println(manager.getTransaction());
+        dao.deleteRequest(requestId);
     }
 
     public void rejectRequest(String requestId) {

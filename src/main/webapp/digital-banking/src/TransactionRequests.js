@@ -3,9 +3,10 @@ import React, {useEffect, useState} from 'react';
 const TransactionRequests = ({ userId }) => {
     const [requests, setRequests] = useState([]);
     useEffect(() => {
-        const parseRequests = (Request) => {
-            console.log(Request);
-            return Request;
+        const parseRequests = (request) => {
+
+            console.log(request);
+            return request;
         };
 
         fetch(`http://localhost:8080/getRequests/` + userId, {
@@ -22,6 +23,7 @@ const TransactionRequests = ({ userId }) => {
     }, [userId]);
 
     const onApprove = (requestId) => {
+        console.log(requestId);
         const url = 'http://localhost:8080/approveRequest/' + requestId;
         fetch(url, {
             method: 'POST',
@@ -54,19 +56,19 @@ const TransactionRequests = ({ userId }) => {
                         <div className="transaction-item" key={index}>
                             <div className="transaction-icon">RL</div>
                             <div className="transaction-details">
-                                <p>{request.description}</p>
+                                <p>{request.message}</p>
                             </div>
                             <p className="transaction-amount">€ {request.amount}</p>
                             <div className="action-buttons">
                                 <button
                                     className="approve-btn"
-                                    onClick={() => onApprove(request.id)}
+                                    onClick={() => onApprove(request.requestId)}
                                 >
                                     &#10003; {/* Checkmark */}
                                 </button>
                                 <button
                                     className="decline-btn"
-                                    onClick={() => onDecline(request.id)}
+                                    onClick={() => onDecline(request.requestId)}
                                 >
                                     &#10005; {/* X symbol */}
                                 </button>
