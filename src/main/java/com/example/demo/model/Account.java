@@ -3,6 +3,7 @@ package com.example.demo.model;
 public abstract class Account {
     private String accountId;
     private double balance;
+    protected boolean isObshiak;
     public String getAccountId() {
         return accountId;
     }
@@ -16,10 +17,12 @@ public abstract class Account {
         balance -= amount;
     }
     public Account(){
+        isObshiak = false;
     }
     public Account(String accountId) {
         this.accountId = accountId;
         this.balance = 0;
+        isObshiak = false;
     }
     public void requestTransaction(Transaction transaction) {
 
