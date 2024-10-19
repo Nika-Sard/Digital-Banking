@@ -1,22 +1,58 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
 
+@Repository
 public class Dao {
     private final ArrayList<Account> accounts;
     private final ArrayList<User> users;
     private final ArrayList<Transaction> transactions;
     private final ArrayList<Request> requests;
     private final ArrayList<RequestManager> requestManagers;
+
+
+
     public Dao() {
         this.requests = new ArrayList<>();
         this.transactions = new ArrayList<>();
         this.accounts = new ArrayList<>();
         this.users = new ArrayList<>();
         this.requestManagers = new ArrayList<>();
+        initDao();
+    }
+
+    public void initDao() {
+        System.out.println("------------------------------ created dao -----------------------");
+        ///adding users
+        for(int i = 0; i < 3; i++) {
+            String id = Integer.toString(i);
+            users.add(new User(id, "user + id"));
+        }
+
+        accounts.add(new Account("0"));
+        accounts.add(new Account("1"));
+        accounts.add(new Account("2"));
+
+        accounts.add((Account) new Obshiaki("3"));
+        accounts.getFirst().deposit(10000);
+        accounts.get(1).deposit(100);
+        accounts.get(2).deposit(500000);
+        accounts.get(3).deposit(78);
+
+        Obshiaki ob1 = (Obshiaki)accounts.get(3);
+
+        addUserAccount("0", "0");
+        addUserAccount("1", "1");
+        addUserAccount("2", "2");
+
+        ob1.addOwnerId("0");
+        ob1.addOwnerId("1");
+        ob1.addOwnerId("2");
     }
 
     public String addAccount(boolean isUserAccount) {
@@ -136,5 +172,15 @@ public class Dao {
     }
     public void setStatus(String transactionId) {
         transactions.get(Integer.parseInt(transactionId)).setStatus();
+    }
+
+    public ArrayList<Transaction> getTransactions(String accountId) {
+        ArrayList<Transaction> result = new ArrayList<>();
+        for(Transaction transaction : transactions) {
+            if((transaction.getSenderId().equals(accountId) || transaction.getReceiverId().equals(accountId)) && transaction.getStatus()) {
+                result.add(new Transaction(transaction));
+            }
+        }
+        return result;
     }
 }

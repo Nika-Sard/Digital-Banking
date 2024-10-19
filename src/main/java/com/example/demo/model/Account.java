@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 public class Account {
     protected String accountId;
-    private double balance;
+    protected double balance;
     protected boolean isObshiak = false;
 
     public boolean getIsObshiak() {
