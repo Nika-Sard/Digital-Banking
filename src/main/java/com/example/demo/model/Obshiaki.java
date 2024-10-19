@@ -8,10 +8,24 @@ public class Obshiaki extends Account{
     public Obshiaki(Obshiaki obshiaki) {
         this.ownerIds = (ArrayList<String>) obshiaki.ownerIds.clone();
         super.isObshiak = true;
+        super.accountId = obshiaki.accountId;
     }
 
-    public Obshiaki(ArrayList <String>ownerIds) {
+    public Obshiaki(String accountId) {
         super.isObshiak = true;
+        super.accountId = accountId;
+        this.ownerIds = new ArrayList<String>();
+    }
+
+    public ArrayList<String> getOwnerIds() {
+        return ownerIds;
+    }
+
+    public void setOwnerIds(ArrayList<String> ownerIds) {
         this.ownerIds = ownerIds;
+    }
+
+    public void addOwnerId(String ownerId) {
+        this.ownerIds.add(ownerId);
     }
 }
