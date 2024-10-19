@@ -24,4 +24,10 @@ public class Account {
         this.balance = 0;
         isObshiak = false;
     }
+
+    public Account(Account account) {
+        this.accountId = account.accountId;
+        this.balance = account.balance;
+        this.isObshiak = account.isObshiak;
+    }
 }

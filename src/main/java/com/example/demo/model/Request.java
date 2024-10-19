@@ -5,11 +5,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class Request{
     private RequestManager manager;
     private Transaction transaction;
-    boolean status = false; // true if accept
     private String message;
 
     public RequestManager getManager() {
         return manager;
+    }
+
+    public Request(Request request) {
+        this.manager = new RequestManager(request.manager);
+        this.transaction = new Transaction(request.transaction);
+        this.message = request.message;
     }
 
     public Request(RequestManager manager, Transaction transaction, String message) {
@@ -18,16 +23,8 @@ public class Request{
         this.manager = manager;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
     public Transaction getTransaction() {
         return transaction;
-    }
-
-    public boolean getStatus() {
-        return status;
     }
 
     public String getMessage() {
