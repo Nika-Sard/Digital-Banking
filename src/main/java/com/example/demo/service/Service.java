@@ -11,6 +11,7 @@ public class Service {
     @Autowired
     private Dao dao;
     public Account getAccount(String id) {
+        if(id.equals("null")) return null;
         return dao.getAccount(id);
     }
 
