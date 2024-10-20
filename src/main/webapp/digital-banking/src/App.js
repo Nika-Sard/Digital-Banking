@@ -89,7 +89,7 @@ const App = () => {
                 <h3>€ {balance}</h3>
             </div>
 
-            <CardComponent accountId={accountId}/>
+            <CardComponent accountId={accountId} userId={userId}/>
 
             <div className="action-buttons">
                 {

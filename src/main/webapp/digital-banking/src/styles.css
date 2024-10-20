@@ -323,3 +323,20 @@ body, html {
 .decline-btn:hover {
     background-color: #aaa; /* Slight hover effect */
 }
+.arrow-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.left-arrow {
+    left: -30px; /* Adjust based on your design */
+}
+
+.right-arrow {
+    right: -30px; /* Adjust based on your design */
+}
