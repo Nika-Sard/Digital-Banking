@@ -95,11 +95,6 @@ const App = () => {
                 {
                     account === "OBSHIAKI" ? (
                         <>
-                            <button className="action-button" onClick={openTopUp}>
-                                <i className="fas fa-plus-circle"></i>
-                                <br/>
-                                Top up
-                            </button>
                             <button className="action-button" onClick={openAddUserModal}>
                                 <i className="fas fa-user-plus"></i>
                                 <br/>

@@ -5,6 +5,7 @@ const CardComponent = ({ accountId, userId }) => {
 
     const updateAccountId = (change) => {
         let updatedAccountId = (parseInt(accountId) + change) % 4;
+        if(updatedAccountId === 0 && change === -1) updatedAccountId = 3;
         if(updatedAccountId === 0) updatedAccountId += 1;
         setNewAccountId(updatedAccountId);
         const newUrl = `http://localhost:3000/?userId=${userId}&accountId=${updatedAccountId}`;
