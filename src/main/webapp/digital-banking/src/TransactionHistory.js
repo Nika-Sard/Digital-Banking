@@ -34,7 +34,7 @@ export default function TransactionHistory({userId, accountId}) {
                 {transactions.length > 0 ? (
                     transactions.map((transaction) => (
                         <div key={transaction.transactionId} className="transaction-item">
-                            <div className="transaction-icon">RL</div>
+                            <div className="transaction-icon">T</div>
                             <div className="transaction-details">
                                 <small>{transaction.message}</small>
                             </div>

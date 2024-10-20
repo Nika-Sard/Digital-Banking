@@ -78,7 +78,7 @@ const App = () => {
     return (
         <div className="app-container">
             <header className="app-header">
-                <div className="user-icon">RL</div>
+                <div className="user-icon">ID: {userId}</div>
                 <h2>{account}</h2>
                 <div className="notification-icon">
                     <i className="fas fa-bell"></i>
